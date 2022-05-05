@@ -1,0 +1,24 @@
+
+
+#sketch-container {
+    display: flex;
+    border: 1px solid black;
+    height: 600px;
+    width: 600px;
+}
+
+.sketch-node {
+    flex: 1 0 auto;
+    height: auto;
+    border: 1px solid lightgray
+}
+
+.sketch-node:before {
+    content: '';
+    display: block;
+    padding-top: 100%;
+}
+
+.sketch-row {
+    flex: 1 0 auto;
+}
