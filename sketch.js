@@ -14,15 +14,31 @@ function resize(e) {
     // don't do anything if user presses "cancel" on prompt
     if (columns === null || rows === null) return;
 
+    // ensure the number isn't too high
     if (columns > 100) columns = 100;
     if (rows > 100) rows = 100;
+
+    if (isNaN(columns) || isNaN(rows)) {
+        alert("Please enter a valid number");
+        return;
+    }
 
     createSketchBox(columns, rows);
 }
 
 function reset(e) {
+    let sketchBox = document.querySelector('#container');
+    sketchBox.classList.add('shake');
+    sketchBox.addEventListener('animationend', e =>
+            sketchBox.classList.remove('shake'));
+
     let nodes = document.querySelectorAll('.sketch-node');
-    nodes.forEach(node => node.style.backgroundColor = 'white');
+    nodes.forEach(node => {        
+        if (node.style.backgroundColor !== 'white') {
+            node.classList.add('wipe');
+            node.style.backgroundColor = 'white';
+        }
+    });
 }
 
 function createSketchBox(columns, rows) {
@@ -53,12 +69,13 @@ function createSketchBox(columns, rows) {
 function addListenersToNodes() {
     let pixels = document.querySelectorAll('.sketch-node');
     
-    pixels.forEach(pixel => 
-            pixel.addEventListener('mouseenter', drawListener));
-
-    // click listener in case user wants to color just one pixel
-    pixels.forEach(pixel => pixel.addEventListener('click', 
-            e => pixel.style.backgroundColor = 'black'));
+    pixels.forEach(pixel => {
+            pixel.addEventListener('mouseenter', drawListener)
+            pixel.addEventListener('click', e =>
+                    pixel.style.backgroundColor = 'black');
+            pixel.addEventListener('transitionend', e => 
+                    pixel.classList.remove('wipe'));
+    });
 }
 
 createSketchBox(64, 64);

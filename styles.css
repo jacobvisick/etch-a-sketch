@@ -1,10 +1,26 @@
-
+h3 {
+    text-align: center;
+    background-color: red;
+    color: gold;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-radius: 10px 10px 0 0;
+    width: 672px;
+    height: 36px;
+}
 
 #sketch-container {
+    margin: 0;
     display: flex;
-    border: 1px solid black;
+    border: 36px solid red;
+    border-top: 0;
     height: 600px;
     width: 600px;
+    border-radius: 0 0 10px 10px;
+}
+
+#button-container {
+    margin: 20px;
 }
 
 .sketch-node {
@@ -21,4 +37,30 @@
 
 .sketch-row {
     flex: 1 0 auto;
+}
+
+.shake {
+    animation: shake .5s ease-in-out;
+}
+
+.wipe {
+    transition: background-color .5s linear;
+}
+
+@keyframes shake {
+    10%, 90% {
+        transform: translateY(-2px);
+    }
+
+    20%, 80% {
+        transform: translateY(4px);
+    }
+
+    30%, 50%, 70% {
+        transform: translateY(-8px);
+    }
+
+    40%, 60% {
+        transform: translateY(8px);
+    }
 }
