@@ -32,13 +32,8 @@ function reset(e) {
     sketchBox.addEventListener('animationend', e =>
             sketchBox.classList.remove('shake'));
 
-    let nodes = document.querySelectorAll('.sketch-node');
-    nodes.forEach(node => {        
-        if (node.style.backgroundColor !== 'white') {
-            node.classList.add('wipe');
-            node.style.backgroundColor = 'white';
-        }
-    });
+    let nodes = document.querySelectorAll('.wipe');
+    nodes.forEach(node => node.style.backgroundColor = 'white');
 }
 
 function createSketchBox(columns, rows) {
@@ -87,4 +82,15 @@ let resetButton = document.querySelector('#reset');
 resetButton.addEventListener('click', reset);
 
 container.addEventListener('mousedown', e => isMouseDown = true);
-container.addEventListener('mouseup', e => isMouseDown = false);
+container.addEventListener('mouseup', e => { 
+    isMouseDown = false
+
+    // apply wipe class to all nodes that have been filled
+    // makes the first "reset" transition a little smoother
+    let pixels = document.querySelectorAll('.sketch-node');
+    pixels.forEach(pixel => {
+        if (pixel.style.backgroundColor === 'black') {
+            pixel.classList.add('wipe');
+        }
+    })
+});
