@@ -71,6 +71,9 @@ function addListenersToNodes() {
             });
             pixel.addEventListener('transitionend', e => 
                     pixel.classList.remove('wipe'));
+
+            // prevent pixels from being draggable
+            pixel.addEventListener('dragstart', (e) => e.preventDefault());
     });
 }
 
