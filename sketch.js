@@ -8,22 +8,20 @@ function drawListener(e) {
 }
 
 function resize(e) {
-    let columns = window.prompt("Width?", 64);
-    let rows = window.prompt("Height?", 64);
+    let size = window.prompt("Please enter a new size", 64);
 
     // don't do anything if user presses "cancel" on prompt
-    if (columns === null || rows === null) return;
+    if (size === null) return;
 
     // ensure the number isn't too high
-    if (columns > 100) columns = 100;
-    if (rows > 100) rows = 100;
+    if (size > 100) size = 100;
 
-    if (isNaN(columns) || isNaN(rows)) {
+    if (isNaN(size)) {
         alert("Please enter a valid number");
         return;
     }
 
-    createSketchBox(columns, rows);
+    createSketchBox(size);
 }
 
 function reset(e) {
@@ -36,7 +34,7 @@ function reset(e) {
     nodes.forEach(node => node.style.backgroundColor = 'white');
 }
 
-function createSketchBox(columns, rows) {
+function createSketchBox(size) {
     // clear board if it exists
     let existingNodes = document.querySelectorAll('.sketch-row');
     if (existingNodes) {
@@ -45,11 +43,11 @@ function createSketchBox(columns, rows) {
         });
     }
 
-    for (let i = 0; i < rows; i++) {
+    for (let i = 0; i < size; i++) {
         let row = document.createElement('div');
         row.classList.add('sketch-row');
 
-        for (let j = 0; j < columns; j++) {
+        for (let j = 0; j < size; j++) {
             let pixel = document.createElement('div');
             pixel.classList.add('sketch-node');
             row.appendChild(pixel);
@@ -76,7 +74,7 @@ function addListenersToNodes() {
     });
 }
 
-createSketchBox(64, 64);
+createSketchBox(64);
 
 let resizeButton = document.querySelector('#resize');
 resizeButton.addEventListener('click', resize);
