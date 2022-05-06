@@ -66,8 +66,11 @@ function addListenersToNodes() {
     
     pixels.forEach(pixel => {
             pixel.addEventListener('mouseenter', drawListener)
-            pixel.addEventListener('click', e =>
-                    pixel.style.backgroundColor = 'black');
+            pixel.addEventListener('click', e => {
+                pixel.style.backgroundColor = 'black';
+                // add wipe class with short delay so it doesn't animate
+                setTimeout(() => pixel.classList.add('wipe'), 500);
+            });
             pixel.addEventListener('transitionend', e => 
                     pixel.classList.remove('wipe'));
     });
